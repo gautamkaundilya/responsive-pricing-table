@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Combo Subscriptions – Pricing</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <h1>All-in-One Subscriptions</h1>
+    <p class="sub">Netflix, ChatGPT, Prime Video & more—bundled in one plan.</p>
+
+    <!-- Billing Toggle -->
+    <div class="billing-toggle" role="group" aria-label="Billing period">
+      <span>Monthly</span>
+      <label class="switch" aria-label="Toggle yearly billing">
+        <input id="billingToggle" type="checkbox" aria-pressed="false" />
+        <span class="slider" aria-hidden="true"></span>
+      </label>
+      <span class="yearly-label">
+        Yearly
+        <span class="save-badge" id="saveBadge" hidden>Save 20%</span>
+      </span>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="pricing-grid">
+      <!-- 10 websites -->
+      <article class="card">
+        <header class="card-header">
+          <h2 class="plan">Starter Combo</h2>
+          <p class="tagline">10 websites access</p>
+        </header>
+
+        <div class="price">
+          <span class="currency">₹</span>
+          <span class="amount" data-monthly="199" data-yearly="159">199</span>
+          <span class="per">/mo</span>
+        </div>
+
+        <ul class="features brands">
+          <li>Netflix</li>
+          <li>Prime Video</li>
+          <li>Disney+ Hotstar</li>
+          <li>Spotify</li>
+          <li>ChatGPT</li>
+          <li>YouTube Premium</li>
+          <li>Zee5</li>
+          <li>Sony LIV</li>
+          <li>Crunchyroll</li>
+          <li>Apple TV+</li>
+        </ul>
+
+        <button class="btn choose"
+          data-plan="Starter Combo"
+          data-websites="10"
+          data-monthly="199"
+          data-yearly="159">Choose Starter</button>
+      </article>
+
+      <!-- 20 websites (Most Popular) -->
+      <article class="card popular" aria-label="Pro plan, most popular">
+        <div class="ribbon" aria-hidden="true">Most Popular</div>
+        <header class="card-header">
+          <h2 class="plan">Pro Combo</h2>
+          <p class="tagline">20 websites access</p>
+        </header>
+
+        <div class="price">
+          <span class="currency">₹</span>
+          <span class="amount" data-monthly="349" data-yearly="279">349</span>
+          <span class="per">/mo</span>
+        </div>
+
+        <ul class="features brands">
+          <li>Starter pack +</li>
+          <li>HBO Max</li>
+          <li>Paramount+</li>
+          <li>Peacock</li>
+          <li>Apple Music</li>
+          <li>Audible</li>
+          <li>Canva Pro</li>
+          <li>Notion</li>
+          <li>Coursera</li>
+          <li>Udemy</li>
+        </ul>
+
+        <button class="btn primary choose"
+          data-plan="Pro Combo"
+          data-websites="20"
+          data-monthly="349"
+          data-yearly="279">Choose Pro</button>
+      </article>
+
+      <!-- 40 websites -->
+      <article class="card">
+        <header class="card-header">
+          <h2 class="plan">Business Combo</h2>
+          <p class="tagline">40 websites access</p>
+        </header>
+
+        <div class="price">
+          <span class="currency">₹</span>
+          <span class="amount" data-monthly="599" data-yearly="479">599</span>
+          <span class="per">/mo</span>
+        </div>
+
+        <ul class="features brands">
+          <li>Pro pack +</li>
+          <li>Figma</li>
+          <li>Photoshop</li>
+          <li>Illustrator</li>
+          <li>CapCut Pro</li>
+          <li>Grammarly</li>
+          <li>QuillBot</li>
+          <li>Skillshare</li>
+          <li>MasterClass</li>
+          <li>LinkedIn Learning</li>
+          <li>Medium</li>
+          <li>NYTimes</li>
+          <li>WSJ</li>
+          <li>BBC</li>
+          <li>Reddit Premium</li>
+          <li>Crunchyroll Mega</li>
+          <li>Viki</li>
+          <li>Voot</li>
+          <li>Discovery+</li>
+          <li>More…</li>
+        </ul>
+
+        <button class="btn choose"
+          data-plan="Business Combo"
+          data-websites="40"
+          data-monthly="599"
+          data-yearly="479">Choose Business</button>
+      </article>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>© <span id="year"></span> Combo Hub</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

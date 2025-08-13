@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Payment Successful</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <h1>Payment successful 🎉</h1>
+    <p class="sub" id="successLine">Confirming your order…</p>
+  </header>
+
+  <main class="container">
+    <div class="pay-card">
+      <p>Thanks for your purchase. You’ll receive activation details on your email shortly.</p>
+      <a class="btn primary" href="index.html">Go to Home</a>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>© <span id="year"></span> Combo Hub</p>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    const p = new URLSearchParams(location.search);
+    const plan = p.get('plan') || 'Your plan';
+    const price = p.get('price') || '—';
+    const billing = p.get('billing') || 'monthly';
+    document.getElementById('successLine').textContent =
+      `${plan} • ₹${price}/${billing === 'yearly' ? 'mo (billed yearly)' : 'mo'}`;
+  </script>
+</body>
+</html>

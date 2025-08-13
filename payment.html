@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Complete Your Payment</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <h1>Complete your payment</h1>
+    <p class="sub" id="orderSummary">Loading order…</p>
+  </header>
+
+  <main class="container">
+    <!-- ====== UPI Apps ====== -->
+    <section class="pay-section">
+      <h2 class="pay-title">Pay with UPI App</h2>
+      <p class="muted">Tap an app to open with amount prefilled.</p>
+
+      <div class="upi-apps">
+        <!-- GPay -->
+        <a class="app-btn" id="btnGpay" href="#" title="Pay with GPay">
+          <span class="app-svg gpay" aria-hidden="true"></span>
+          <span>GPay</span>
+        </a>
+
+        <!-- Paytm -->
+        <a class="app-btn" id="btnPaytm" href="#" title="Pay with Paytm">
+          <span class="app-svg paytm" aria-hidden="true"></span>
+          <span>Paytm</span>
+        </a>
+
+        <!-- PhonePe -->
+        <a class="app-btn" id="btnPhonePe" href="#" title="Pay with PhonePe">
+          <span class="app-svg phonepe" aria-hidden="true"></span>
+          <span>PhonePe</span>
+        </a>
+
+        <!-- BharatPe -->
+        <a class="app-btn" id="btnBharatPe" href="#" title="Pay with BharatPe">
+          <span class="app-svg bharatpe" aria-hidden="true"></span>
+          <span>BharatPe</span>
+        </a>
+      </div>
+
+      <div class="pay-card hint">
+        <p>
+          Or use generic UPI:
+        </p>
+        <div class="copy-row">
+          <code id="upiText">7700891004@ptsbi</code>
+          <button class="btn small" id="copyUpi">Copy</button>
+          <a id="upiIntent" class="btn primary" href="#">Open UPI</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====== PayPal ====== -->
+    <section class="pay-section">
+      <h2 class="pay-title">Pay with PayPal</h2>
+      <div class="paypal-row">
+        <a class="app-btn" id="btnPaypal" href="#" title="Pay with PayPal">
+          <span class="app-svg paypal" aria-hidden="true"></span>
+          <span>PayPal</span>
+        </a>
+        <div class="copy-row">
+          <code id="paypalText">gautamkaundilya11may@gmail.com</code>
+          <button class="btn small" id="copyPaypal">Copy</button>
+        </div>
+      </div>
+      <p class="note">Open in PayPal app (if installed). Else we’ll fall back to email instructions.</p>
+    </section>
+
+    <!-- ====== Card Payment ====== -->
+    <section class="pay-section">
+      <h2 class="pay-title">Pay with Card (Credit/Debit)</h2>
+
+      <form id="cardForm" class="card-form" novalidate>
+        <div class="grid">
+          <label class="field">
+            <span>Cardholder Name</span>
+            <input type="text" id="cardName" placeholder="Full name on card" required />
+          </label>
+
+          <label class="field">
+            <span>Billing Email</span>
+            <input type="email" id="billEmail" placeholder="you@email.com" required />
+          </label>
+        </div>
+
+        <label class="field">
+          <span>Card Number</span>
+          <input type="text" id="cardNumber" inputmode="numeric" autocomplete="cc-number"
+                 placeholder="1234 5678 9012 3456" maxlength="19" required />
+          <small class="muted">We accept Visa, Mastercard, RuPay, Amex.</small>
+        </label>
+
+        <div class="grid">
+          <label class="field">
+            <span>Expiry (MM/YY)</span>
+            <input type="text" id="cardExpiry" inputmode="numeric" placeholder="MM/YY" maxlength="5" required />
+          </label>
+          <label class="field">
+            <span>CVV</span>
+            <input type="password" id="cardCvv" inputmode="numeric" placeholder="***" maxlength="4" required />
+          </label>
+        </div>
+
+        <button class="btn primary" type="submit" id="payCardBtn">Pay ₹<span id="cardAmount">—</span></button>
+        <p class="tiny muted">By continuing, you agree to receive an OTP to verify this payment.</p>
+      </form>
+    </section>
+
+    <section class="confirm-box">
+      <a class="btn ghost" href="index.html">← Back to pricing</a>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>© <span id="year"></span> Combo Hub</p>
+  </footer>
+
+  <!-- ====== OTP OVERLAY ====== -->
+  <div class="otp-overlay" id="otpOverlay" aria-hidden="true">
+  <div class="otp-box" role="dialog" aria-modal="true" aria-labelledby="otpTitle">
+    <button class="close-x" id="closeOtp" aria-label="Close">✕</button>
+    <h3 id="otpTitle">Enter OTP</h3>
+    <p class="muted" id="otpSub">We sent a 6-digit OTP to your bank-registered mobile.</p>
+
+    <form id="otpForm">
+      <div class="otp-fields">
+        <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*" class="otp-digit" required>
+        <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*" class="otp-digit" required>
+        <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*" class="otp-digit" required>
+        <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*" class="otp-digit" required>
+        <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*" class="otp-digit" required>
+        <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*" class="otp-digit" required>
+      </div>
+      <button class="btn primary" type="submit">Verify &amp; Pay</button>
+    </form>
+
+    <p class="tiny muted" id="otpHint">Demo: enter <strong>123456</strong> to succeed.</p>
+  </div>
+</div>
+
+
+  <script src="payment.js"></script>
+</body>
+</html>
