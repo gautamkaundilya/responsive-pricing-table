@@ -13,66 +13,49 @@
   </header>
 
   <main class="container">
-    <!-- ====== UPI Apps ====== -->
+
+    <!-- ====== UPI (Generic with your QR) ====== -->
     <section class="pay-section">
-      <h2 class="pay-title">Pay with UPI App</h2>
-      <p class="muted">Tap an app to open with amount prefilled.</p>
+      <h2 class="pay-title">Pay with UPI</h2>
+      <div class="pay-card">
+        <img
+          id="qrStatic"
+          class="qr"
+          src="assets/gk-upi-qr.jpeg"   <!-- 👈 PUT your hosted QR image path -->
+          alt="UPI QR Code"
+          crossorigin="anonymous"
+          referrerpolicy="no-referrer"
+        />
 
-      <div class="upi-apps">
-        <!-- GPay -->
-        <a class="app-btn" id="btnGpay" href="#" title="Pay with GPay">
-          <span class="app-svg gpay" aria-hidden="true"></span>
-          <span>GPay</span>
-        </a>
-
-        <!-- Paytm -->
-        <a class="app-btn" id="btnPaytm" href="#" title="Pay with Paytm">
-          <span class="app-svg paytm" aria-hidden="true"></span>
-          <span>Paytm</span>
-        </a>
-
-        <!-- PhonePe -->
-        <a class="app-btn" id="btnPhonePe" href="#" title="Pay with PhonePe">
-          <span class="app-svg phonepe" aria-hidden="true"></span>
-          <span>PhonePe</span>
-        </a>
-
-        <!-- BharatPe -->
-        <a class="app-btn" id="btnBharatPe" href="#" title="Pay with BharatPe">
-          <span class="app-svg bharatpe" aria-hidden="true"></span>
-          <span>BharatPe</span>
-        </a>
-      </div>
-
-      <div class="pay-card hint">
-        <p>
-          Or use generic UPI:
-        </p>
         <div class="copy-row">
-          <code id="upiText">7700891004@ptsbi</code>
+          <code id="upiText">gautamkaundilya1110-1@oksbi</code>
           <button class="btn small" id="copyUpi">Copy</button>
           <a id="upiIntent" class="btn primary" href="#">Open UPI</a>
         </div>
+
+        <div class="pay-actions">
+          <button class="btn" id="btnAutoPayQR">Pay from this QR (Auto)</button>
+          <a class="btn ghost" id="btnDownloadQR" href="assets/gk-upi-qr.jpeg" download>Download QR</a>
+        </div>
+
+        <p class="tiny muted">No camera needed. We decode this QR here and open your UPI app with amount &amp; note filled.</p>
       </div>
     </section>
 
-    <!-- ====== PayPal ====== -->
+    <!-- ====== PayPal (optional, unchanged) ====== -->
     <section class="pay-section">
       <h2 class="pay-title">Pay with PayPal</h2>
-      <div class="paypal-row">
-        <a class="app-btn" id="btnPaypal" href="#" title="Pay with PayPal">
-          <span class="app-svg paypal" aria-hidden="true"></span>
-          <span>PayPal</span>
-        </a>
+      <div class="pay-card">
         <div class="copy-row">
           <code id="paypalText">gautamkaundilya11may@gmail.com</code>
           <button class="btn small" id="copyPaypal">Copy</button>
         </div>
+        <a class="btn" id="btnPaypal" href="#" target="_blank" rel="noopener">Open PayPal</a>
+        <p class="tiny muted">If the app doesn’t open, we’ll show a quick email fallback.</p>
       </div>
-      <p class="note">Open in PayPal app (if installed). Else we’ll fall back to email instructions.</p>
     </section>
 
-    <!-- ====== Card Payment ====== -->
+    <!-- ====== Card Payment (with OTP) ====== -->
     <section class="pay-section">
       <h2 class="pay-title">Pay with Card (Credit/Debit)</h2>
 
@@ -82,7 +65,6 @@
             <span>Cardholder Name</span>
             <input type="text" id="cardName" placeholder="Full name on card" required />
           </label>
-
           <label class="field">
             <span>Billing Email</span>
             <input type="email" id="billEmail" placeholder="you@email.com" required />
@@ -108,7 +90,7 @@
         </div>
 
         <button class="btn primary" type="submit" id="payCardBtn">Pay ₹<span id="cardAmount">—</span></button>
-        <p class="tiny muted">By continuing, you agree to receive an OTP to verify this payment.</p>
+        <p class="tiny muted">You’ll get a 6-digit OTP to verify this payment.</p>
       </form>
     </section>
 
@@ -121,30 +103,43 @@
     <p>© <span id="year"></span> Combo Hub</p>
   </footer>
 
-  <!-- ====== OTP OVERLAY ====== -->
-  <div class="otp-overlay" id="otpOverlay" aria-hidden="true">
-  <div class="otp-box" role="dialog" aria-modal="true" aria-labelledby="otpTitle">
-    <button class="close-x" id="closeOtp" aria-label="Close">✕</button>
-    <h3 id="otpTitle">Enter OTP</h3>
-    <p class="muted" id="otpSub">We sent a 6-digit OTP to your bank-registered mobile.</p>
-
-    <form id="otpForm">
-      <div class="otp-fields">
-        <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*" class="otp-digit" required>
-        <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*" class="otp-digit" required>
-        <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*" class="otp-digit" required>
-        <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*" class="otp-digit" required>
-        <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*" class="otp-digit" required>
-        <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*" class="otp-digit" required>
+  <!-- ====== “Waiting for payment” overlay (UPI) ====== -->
+  <div class="wait-overlay" id="waitOverlay" aria-hidden="true">
+    <div class="wait-box">
+      <h3>Complete the payment in your UPI app</h3>
+      <p class="muted">Return to this page when finished.</p>
+      <div class="wait-actions">
+        <button class="btn primary" id="btnPaid">I’ve paid</button>
+        <button class="btn ghost" id="btnRetryUpi">Open UPI again</button>
       </div>
-      <button class="btn primary" type="submit">Verify &amp; Pay</button>
-    </form>
-
-    <p class="tiny muted" id="otpHint">Demo: enter <strong>123456</strong> to succeed.</p>
+    </div>
   </div>
-</div>
 
+  <!-- ====== OTP OVERLAY (6-box) – keep your CSS from earlier ====== -->
+  <div class="otp-overlay" id="otpOverlay" aria-hidden="true">
+    <div class="otp-box" role="dialog" aria-modal="true" aria-labelledby="otpTitle">
+      <button class="close-x" id="closeOtp" aria-label="Close">✕</button>
+      <h3 id="otpTitle">Enter OTP</h3>
+      <p class="muted" id="otpSub">We sent a 6-digit OTP to your bank-registered mobile.</p>
 
+      <form id="otpForm">
+        <div class="otp-fields">
+          <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*" class="otp-digit" required>
+          <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*" class="otp-digit" required>
+          <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*" class="otp-digit" required>
+          <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*" class="otp-digit" required>
+          <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*" class="otp-digit" required>
+          <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*" class="otp-digit" required>
+        </div>
+        <button class="btn primary" type="submit">Verify &amp; Pay</button>
+      </form>
+
+      <p class="tiny muted">Demo OTP: <strong>123456</strong>.</p>
+    </div>
+  </div>
+
+  <!-- QR decoder (client-side) -->
+  <script src="https://unpkg.com/qr-scanner@1.4.2/qr-scanner.umd.min.js"></script>
   <script src="payment.js"></script>
 </body>
 </html>
